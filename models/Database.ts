@@ -38,7 +38,6 @@ export class Database {
     public query(fn: Function){
             event.on('exitQuery' , async (mongoAggregateQuery)=>{
                 const collection = mongoAggregateQuery.shift()["collectionName"]!;
-                console.log(mongoAggregateQuery)
                 let results  = await this.db.collection(collection).aggregate(mongoAggregateQuery).toArray()
                 fn(results);
             })
