@@ -10,7 +10,7 @@ export class QueryListener implements MongoSQLParserListener {
     exitQuery(ctx: QueryContext){
         try {
             const populate = this.mongoAggregateQuery.splice(1,1)[0];
-            if(Object.keys(populate["populate"]).length>0){
+            if(Object.keys(populate["$project"]).length>0){
                 this.mongoAggregateQuery.push(populate);
             }
             event.emit('exitQuery', this.mongoAggregateQuery);
@@ -37,7 +37,7 @@ export class QueryListener implements MongoSQLParserListener {
             }
         }
 
-        this.mongoAggregateQuery.push({"populate": populateQuery})
+        this.mongoAggregateQuery.push({"$project": populateQuery})
     };
     enterCondition(ctx: ConditionContext){
         // If expression - push it in expression stack after translating it into mongo object
