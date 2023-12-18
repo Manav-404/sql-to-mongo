@@ -11,7 +11,7 @@ import { Database } from "./Database";
 
 export class Parser {
 
-    private mongodbInstance!: Database ;
+    private mongodbInstance: Database | undefined ;
     public constructor(url: string){
         if(!this.mongodbInstance){
             try {
@@ -24,7 +24,7 @@ export class Parser {
     }
 
     public async connect(): Promise<Parser>{
-        await this.mongodbInstance.connect();
+        await this.mongodbInstance!.connect();
         return this;
     }
 
@@ -37,7 +37,8 @@ export class Parser {
         }}))
         let tree = parser.query();
         let parserListener: MongoSQLParserListener = new QueryListener();
-        this.mongodbInstance.query(fn);
+        this.mongodbInstance!.query(fn);
         ParseTreeWalker.DEFAULT.walk(parserListener, tree);
+
     } 
 }
