@@ -58,7 +58,7 @@ comparison_operator:
 */
 
 
-NUMBER: DIGIT+ ([.,] DIGIT+)? ;
+NUMBER: [Nn] DIGIT+ ([.,] DIGIT+)? ;
 
 SELECT : S E L E C T ;
 

@@ -38,8 +38,12 @@ export class Database {
     public query(fn: Function){
             event.on('exitQuery' , async (mongoAggregateQuery)=>{
                 const collection = mongoAggregateQuery.shift()["collectionName"]!;
-                let results  = await this.db.collection(collection).aggregate(mongoAggregateQuery).toArray()
-                fn(results);
+                try {
+                    let results  = await this.db.collection(collection).aggregate(mongoAggregateQuery).toArray()
+                    fn(results);
+                } catch (error: any) {
+                    console.log("Error from querying the database:",(error as Error).message)
+                }
             })
     }
 }
