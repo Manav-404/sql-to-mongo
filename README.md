@@ -97,7 +97,9 @@ At least one collection name is required
 
 | Parameter | Description                       |
 | :-------- | :-------------------------------- |
-| `column1=SQL and column2>=100 or column3 < 200...` | Conditions with logical and range operators to satisfy for selecting documents |
+| `column1=SQL and column2>=n100 or column3 < N200...` | Conditions with logical and range operators to satisfy for selecting documents |
+> **_NOTE:_**  Prefix numbers with n or N. Else they will be parsed as strings
+
 
 ### Operators
 Supported logical and range operators
