@@ -88,7 +88,9 @@ export class QueryListener implements MongoSQLParserListener {
             }
         }
 
-        if(operatorStack.length === 1){
+        if(operatorStack.length===0){
+            aggregateObject = expressionStack.pop();
+        }else if(operatorStack.length === 1){
             const top = operatorStack.pop();
             while(expressionStack.length>0){
                 expressions.push(expressionStack.pop())
@@ -99,8 +101,6 @@ export class QueryListener implements MongoSQLParserListener {
                 const top = operatorStack.pop();
                 aggregateObject[`$${top}`] = expressions;
 
-        }else{
-            throw new Error("Incomplete query. Please provide a valid query as per the doc")
         }
 
         function bindExpressions(){
@@ -113,7 +113,6 @@ export class QueryListener implements MongoSQLParserListener {
                 }
                 expressions.push(object);
         }
-
         this.mongoAggregateQuery.push({"$match": aggregateObject});
 
     };
@@ -122,8 +121,7 @@ export class QueryListener implements MongoSQLParserListener {
         
         const columnObject: mongoObject = {};
         columnObject[`${column}`] = {}
-        const valueRepresentation = Number(value) ? Number(value)  :value;
-
+        const valueRepresentation = value.includes("N") || value.includes("n") ? Number(value.split("").filter((el)=>(el!=="N" && el!=="n")).join(""))  :value;
         switch(expression){
             case "<":
                 columnObject[`${column}`]["$lt"] = valueRepresentation;
