@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "sql-mongo": "antlr4ts grammar/MongoSQLParser.g4",
+    "sql-mongo": "cd grammar && antlr4ts MongoSQLParser.g4",
     "query": "ts-node-dev --poll server.ts"
   },
   "keywords": [],
