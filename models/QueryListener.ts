@@ -121,7 +121,8 @@ export class QueryListener implements MongoSQLParserListener {
         
         const columnObject: mongoObject = {};
         columnObject[`${column}`] = {}
-        const valueRepresentation = value.includes("N") || value.includes("n") ? Number(value.split("").filter((el)=>(el!=="N" && el!=="n")).join(""))  :value;
+        const valueRepresentation = value.split("")[0] === ("N" || "n") ? Number(value.split("").filter((el)=>(el!=="N" && el!=="n")).join(""))  :value;
+        console.log(value, valueRepresentation)
         switch(expression){
             case "<":
                 columnObject[`${column}`]["$lt"] = valueRepresentation;
