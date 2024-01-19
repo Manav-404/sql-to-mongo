@@ -24,7 +24,7 @@ column_list:
     (',' column)* 
     ;
 column: 
-    IDENTIFIER 
+    IDENTIFIER  | IDENTIFIER ('.' IDENTIFIER)*
     ;
 source: 
     FROM 
