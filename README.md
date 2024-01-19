@@ -94,11 +94,18 @@ At least one collection name is required
 | `users` | Name of the collection to perform query |
 
 ### Condition in where clause 
-
-| Parameter | Description                       |
-| :-------- | :-------------------------------- |
-| `column1=SQL and column2>=n100 or column3 < N200...` | Conditions with logical and range operators to satisfy for selecting documents |
+Conditions with logical and range operators to satisfy for selecting documents
+```SQL
+column1=SQL and column2>=n100 or column3 < N200
+```
 > **_NOTE:_**  Prefix numbers with n or N. Else they will be parsed as strings
+
+
+### Conditions for querying subdocuments
+Use the dot annotation to query subdocuments
+   ```SQL
+   WHERE customer.name = Tom and customer.age > N28
+   ```
 
 
 ### Operators
