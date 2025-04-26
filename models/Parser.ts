@@ -5,6 +5,7 @@ import { QueryListener } from "./QueryListener";
 import { ParseTreeWalker } from 'antlr4ts/tree/ParseTreeWalker'
 import { MongoSQLParserListener } from "../grammar/MongoSQLParserListener";
 import { Database } from "./Database";
+import { QueryVistor } from '../src/visitor/QueryVisitor';
 
 
 
@@ -36,9 +37,13 @@ export class Parser {
             throw new Error(`Error in line ${line} at char ${charPositionInLine} : ${msg}`)
         }}))
         let tree = parser.query();
-        let parserListener: MongoSQLParserListener = new QueryListener();
+        // let parserListener: MongoSQLParserListener = new QueryListener();
+        const visitor = new QueryVistor();
+        const ast = visitor.visit(tree);
+
+        // @TODO convert the ast to MongoDB query
+        // toMongoDB(ast)
         this.mongodbInstance!.query(fn);
-        ParseTreeWalker.DEFAULT.walk(parserListener, tree);
 
     } 
 }
